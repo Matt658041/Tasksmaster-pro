@@ -153,22 +153,26 @@ $("#task-form-modal .btn-primary").click(function() {
 });
 
 // task text was clicked
-$(".list-group").on("click", "p", function() {
-  // get current text of p element
-  var text = $(this)
-    .text()
-    .trim();
-
-  // replace p element with a new textarea
-  var textInput = $("<textarea>").addClass("form-control").val(text);
-  $(this).replaceWith(textInput);
-
-  // auto focus new element
-  textInput.trigger("focus");
+$(".list-group").on("click", "span", function() {
+  // get current text 
+  var date = $(this).text() .trim();
+  //create new input element  
+  var dateInput = $("<input>").attr("type","text").addClass("form-control").val(date);
+  $(this).replaceWith(dateInput);
+  //enable jqery ui datepicker
+  dateInput.datepicker({
+    minDate: 1,
+    onClose: function(){
+      // when calendar is closed, force a "change" evenet on the `dateInput`
+      $(this).trigger("change");
+    }
+  });
+  //automatically bring up the calendar 
+  dateInput.trigger("focus");
 });
 
 // editable field was un-focused
-$(".list-group").on("blur", "textarea", function() {
+$(".list-group").on("change", "input[type=text]", function() {
   // get current value of textarea
   var text = $(this).val();
 
