@@ -259,6 +259,9 @@ $(".list-group").on("change", "input[type='text']", function() {
     .addClass("badge badge-primary badge-pill")
     .text(date);
     $(this).replaceWith(taskSpan);
+
+    //Pass task's <li> element into auditTask() to ckeck new due date
+    auditTask($(taskSpan).closest(".list-group-item"));
 });
 
 // remove all tasks
